@@ -1,0 +1,8 @@
+spring:
+     application:
+          name:activityservice
+     data:
+       mongodb:
+          uri:mongodb+srv://anubhav:Anu1715@activityservice.kqyxop8.mongodb.net/ActivityMicroService?appName=activityService
+server:
+     port:8082
