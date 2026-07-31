@@ -35,4 +35,11 @@ public ResponseEntity<UserResponse> getUserProfile(@PathVariable String userId){
 public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody RegisterUser request){
 	return ResponseEntity.ok(userservice.registerUser(request));
 			
-}}
+}
+
+@GetMapping("/{userId}/validate")
+public ResponseEntity<Boolean> validateUser(String userId){
+	return ResponseEntity.ok(userservice.existByUserId(userId));
+}
+
+}

@@ -21,11 +21,13 @@ public class ActivityController {
     @GetMapping("/")
     public String getUserProfile(){
         String s="hello";
-return s;
+        return s;
     }
 
     @PostMapping("/registeractivity")
     public ResponseEntity<ActivityResponse> trackActivity(@RequestBody ActivityRequest request){
         return ResponseEntity.ok(activityService.trackActivity(request));
     }
+
+   
 }

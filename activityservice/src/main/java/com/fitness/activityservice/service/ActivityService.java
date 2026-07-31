@@ -1,21 +1,26 @@
 package com.fitness.activityservice.service;
 
 import com.fitness.activityservice.ActivityRepository;
+import com.fitness.activityservice.config.WebClientConfig;
 import com.fitness.activityservice.dto.ActivityRequest;
 import com.fitness.activityservice.dto.ActivityResponse;
 import com.fitness.activityservice.model.Activity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ActivityService {
 
-    //In place of autowired @Allargconstructor can also be used as annotation
-    @Autowired
-    public ActivityRepository activityRepository;
+
+    private final ActivityRepository activityRepository;
+    private final WebClientConfig webclientconfig;
+
+    public ActivityService(ActivityRepository activityrepository,WebClientConfig webclientconfig)
+    {
+        this.activityRepository = activityrepository;
+        this.webclientconfig = webclientconfig;
+    }
+
 
     public ActivityResponse trackActivity(ActivityRequest request) {
         Activity activity = Activity.builder()
