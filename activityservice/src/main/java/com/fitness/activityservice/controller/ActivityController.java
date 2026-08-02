@@ -19,7 +19,7 @@ public class ActivityController {
 
 
     @GetMapping("/")
-    public String getUserProfile(){
+    public String getActivity(){
         String s="hello";
         return s;
     }
@@ -29,5 +29,5 @@ public class ActivityController {
         return ResponseEntity.ok(activityService.trackActivity(request));
     }
 
-   
+
 }

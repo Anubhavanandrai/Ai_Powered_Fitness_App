@@ -19,7 +19,8 @@ public class UserService {
 
     public UserResponse registerUser(RegisterUser registeruser) {
 
-
+        long start = System.currentTimeMillis();
+        System.out.println(start);
         if(userRepository.existsByEmail(registeruser.getEmail())){
             throw new RuntimeException("Email already exists");
         }
@@ -29,13 +30,19 @@ public class UserService {
         user.setFirstName(registeruser.getFirstName());
         user.setLastName(registeruser.getLastName());
 
-        User x = userRepository.save(user);
-        UserResponse userresponse = new UserResponse();
-        userresponse.setEmail(registeruser.getEmail());
-        userresponse.setFirstName(registeruser.getFirstName());
-        userresponse.setLastName(registeruser.getLastName());
+        User savedUser = userRepository.save(user);
+        UserResponse userResponse = new UserResponse();
+        userResponse.setId(savedUser.getId());
+        userResponse.setEmail(savedUser.getEmail());
+        userResponse.setFirstName(savedUser.getFirstName());
+        userResponse.setLastName(savedUser.getLastName());
+        userResponse.setCreatedAt(savedUser.getCreatedAt());
+        userResponse.setUpdatedAt(savedUser.getUpdatedAt());
 
-        return userresponse;
+        long end = System.currentTimeMillis();
+        System.out.println(end);
+
+        return userResponse;
     }
 
     public UserResponse getUserProfile(String userid) {

@@ -24,6 +24,12 @@ public class Usercontroller {
 	
 @Autowired private UserService userservice;
 
+	@GetMapping("/")
+	public String getHome(){
+		String s="hello from userservice";
+		return s;
+	}
+
 
 @GetMapping("/{userId}")
 public ResponseEntity<UserResponse> getUserProfile(@PathVariable String userId){
@@ -33,12 +39,15 @@ public ResponseEntity<UserResponse> getUserProfile(@PathVariable String userId){
 
 @PostMapping("/register")
 public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody RegisterUser request){
+	long controller_registeration= System.currentTimeMillis();
+
+	System.out.println(controller_registeration);
 	return ResponseEntity.ok(userservice.registerUser(request));
 			
 }
 
-@GetMapping("/{userId}/validate")
-public ResponseEntity<Boolean> validateUser(String userId){
+@PostMapping("/{userId}/validate")
+public ResponseEntity<Boolean> validateUser(@PathVariable String userId){
 	return ResponseEntity.ok(userservice.existByUserId(userId));
 }
 

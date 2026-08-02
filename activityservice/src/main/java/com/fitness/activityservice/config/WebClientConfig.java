@@ -15,6 +15,11 @@ public class WebClientConfig {
         return WebClient.builder();
     }
 
+    //Bean is injected by its type not name thats why we use "ClassName" this is also a type.
+    // so whenever we search for a bean we search for the type first then
+    //if we have multiple beans of same type then we use qualifier.
+
+    // private final WebClient webclient; will be injected
     @Bean
     public WebClient userServciceWebClient(WebClient.Builder webClientBuilder){
     return webClientBuilder
