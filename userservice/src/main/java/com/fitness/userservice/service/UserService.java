@@ -58,6 +58,12 @@ public class UserService {
     }
 
     public Boolean existByUserId(String userId) {
-        return userRepository.existsById(userId);
+
+        boolean exists = userRepository.existsById(userId);
+
+        System.out.println("User ID = " + userId);
+        System.out.println("Exists = " + exists);
+
+        return exists;
     }
 }

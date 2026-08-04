@@ -19,7 +19,7 @@ public class UserValidationService {
 
     public boolean validateUserID(String id){
         try {
-            return Boolean.TRUE.equals(userServiceWebClient.get()
+            return  userServiceWebClient.get()
                     .uri("/api/user/{id}/validate", id)
                     .retrieve()
                     .bodyToMono(Boolean.class)

@@ -19,8 +19,18 @@ public class ActivityService {
 
     public ActivityResponse trackActivity(ActivityRequest request) {
 
+        System.out.println("Inside Activity service");
+
+        boolean validationResult = userValidationService.validateUserID(request.getUserId());
+
+        if (validationResult) {
+            throw new RuntimeException("Activity registration failed. User does not exist.");
+        }
+
         try {
-            userValidationService.validateUserID(request.getUserId());
+
+            System.out.println("User ID is : " + request.getUserId());
+            System.out.println("User ID validated");
 
             Activity activity = Activity.builder()
                     .types(request.getType())

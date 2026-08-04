@@ -1,5 +1,8 @@
 package com.fitness.userservice.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +27,7 @@ public class Usercontroller {
 	
 @Autowired private UserService userservice;
 
+
 	@GetMapping("/")
 	public String getHome(){
 		String s="hello from userservice";
@@ -46,8 +50,9 @@ public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody RegisterUse
 			
 }
 
-@PostMapping("/{userId}/validate")
+@GetMapping("/{userId}/validate")
 public ResponseEntity<Boolean> validateUser(@PathVariable String userId){
+	System.out.println("Inside User controller validate");
 	return ResponseEntity.ok(userservice.existByUserId(userId));
 }
 

@@ -26,6 +26,7 @@ public class ActivityController {
 
     @PostMapping("/registeractivity")
     public ResponseEntity<ActivityResponse> trackActivity(@RequestBody ActivityRequest request){
+        System.out.println("Inside Activity register controller");
         return ResponseEntity.ok(activityService.trackActivity(request));
     }
 
