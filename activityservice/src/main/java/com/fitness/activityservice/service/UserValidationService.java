@@ -23,17 +23,11 @@ public class UserValidationService {
                     .uri("/api/user/{id}/validate", id)
                     .retrieve()
                     .bodyToMono(Boolean.class)
-                    .block());
+                    .block();
         }
         catch (WebClientResponseException e)
         {
-            if (e.getStatusCode().value() == 404)
-            {
-            throw new RuntimeException("User not found");
-            }
-            else{
-                throw new RuntimeException("Userservice not available" ,e);
-                }
+            throw new RuntimeException("Userservice not available" ,e);
         }
 
         }

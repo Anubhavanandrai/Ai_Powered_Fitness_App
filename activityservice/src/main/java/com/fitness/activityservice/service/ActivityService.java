@@ -19,20 +19,21 @@ public class ActivityService {
 
     public ActivityResponse trackActivity(ActivityRequest request) {
 
-        System.out.println("Inside Activity service");
+        System.out.println("Inside Activity Service");
 
         boolean validationResult = userValidationService.validateUserID(request.getUserId());
 
-        if (validationResult) {
-            throw new RuntimeException("Activity registration failed. User does not exist.");
+        // User does not exist
+        if (!validationResult) {
+            throw new RuntimeException("Activity registration failed, No user found.");
         }
 
         try {
 
-            System.out.println("User ID is : " + request.getUserId());
-            System.out.println("User ID validated");
+            System.out.println("User ID : " + request.getUserId());
+            System.out.println("User validated successfully.");
 
-            Activity activity = Activity.builder()
+           Activity activity = Activity.builder()
                     .types(request.getType())
                     .startTime(request.getStartTime())
                     .additionalMetrics(request.getAdditionalMetrics())
@@ -45,8 +46,8 @@ public class ActivityService {
 
             return mapToResponse(savedActivity);
 
-        } catch (RuntimeException e) {
-            throw new RuntimeException("Activity registration failed", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Activity registration failed.", e);
         }
     }
 
