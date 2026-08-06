@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: aiservice
+
+  mongodb:
+   uri: mongodb+srv://Anubhavanand_fitness:Anubhav310@activityservice.kqyxop8.mongodb.net/AiMicroservice?appName=aiRecommendations
+server:
+  port: 8083
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
