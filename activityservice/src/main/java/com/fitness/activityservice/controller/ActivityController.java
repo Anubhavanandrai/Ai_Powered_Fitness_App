@@ -3,7 +3,7 @@ package com.fitness.activityservice.controller;
 import com.fitness.activityservice.dto.ActivityRequest;
 import com.fitness.activityservice.dto.ActivityResponse;
 import com.fitness.activityservice.service.ActivityService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fitness.activityservice.service.KafkaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +14,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/activities")
 public class ActivityController {
 
-    @Autowired
     private ActivityService activityService;
+    private KafkaService kafkaService;
 
+    public ActivityController(ActivityService activityService ,KafkaService kafkaService)
+    {
+       this.activityService=activityService;
+       this.kafkaService=kafkaService;
+    }
 
     @GetMapping("/")
     public String getActivity(){
@@ -30,5 +35,17 @@ public class ActivityController {
         return ResponseEntity.ok(activityService.trackActivity(request));
     }
 
+
+    @PostMapping("/sendEvents/{message}")
+    public ResponseEntity<?> sendEvents(@PathVariable String message) {
+        System.out.println("Controller reached");
+        System.out.println("Message = " + message);
+        try {
+            kafkaService.sendActivityEvent(message);
+            return ResponseEntity.accepted().body("Event submitted");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Failed to submit event");
+        }
+    }
 
 }
