@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("/api/recommendations")
 public class RecommendationController {
-    @Autowired
+
     private final RecommendationService recommendationService;
 
+    public RecommendationController(RecommendationService recommendationService)
+    {
+        this.recommendationService=recommendationService;
+    }
 
-    public ResponseEntity<>
+
 }
