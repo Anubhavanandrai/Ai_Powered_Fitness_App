@@ -14,7 +14,7 @@ import java.util.List;
 @Document(collection="aiRecommendations")
 @AllArgsConstructor
 @NoArgsConstructor
-public class  {
+public class Recommendations {
 
     @Id
     private String id;

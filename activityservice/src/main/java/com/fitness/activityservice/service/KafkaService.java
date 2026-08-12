@@ -1,6 +1,7 @@
 package com.fitness.activityservice.service;
 
 
+import com.fitness.activityservice.dto.ActivityRequest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class KafkaService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendActivityEvent(String message) {
+    public void sendActivityEvent(ActivityRequest message) {
         CompletableFuture<SendResult<String, String>> future =
                 kafkaTemplate.send(TOPIC, message);
 

@@ -36,12 +36,12 @@ public class ActivityController {
     }
 
 
-    @PostMapping("/sendEvents/{message}")
-    public ResponseEntity<?> sendEvents(@PathVariable String message) {
+    @PostMapping("/sendactivityEvents")
+    public ResponseEntity<?> sendEvents(@RequestBody ActivityRequest activityRequest) {
         System.out.println("Controller reached");
-        System.out.println("Message = " + message);
+        System.out.println("Message = " + activityRequest);
         try {
-            kafkaService.sendActivityEvent(message);
+            kafkaService.sendActivityEvent(activityRequest);
             return ResponseEntity.accepted().body("Event submitted");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Failed to submit event");
