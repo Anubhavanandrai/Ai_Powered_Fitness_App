@@ -15,6 +15,7 @@ public class ActivityService {
 
     private final ActivityRepository activityRepository;
     private final UserValidationService userValidationService;
+    private final KafkaService kafkaService;
 
 
     public ActivityResponse trackActivity(ActivityRequest request) {
@@ -43,7 +44,7 @@ public class ActivityService {
                     .build();
 
             Activity savedActivity = activityRepository.save(activity);
-
+            kafkaService.sendActivityEvent(request);
             return mapToResponse(savedActivity);
 
         } catch (Exception e) {

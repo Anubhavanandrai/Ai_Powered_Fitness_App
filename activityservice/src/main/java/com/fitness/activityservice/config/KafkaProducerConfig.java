@@ -1,6 +1,7 @@
 package com.fitness.activityservice.config;
 
 
+import com.fitness.activityservice.dto.ActivityRequest;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class KafkaProducerConfig {
 
     @Bean
-    public ProducerFactory<String, String> producerFactory() {
+    public ProducerFactory<String, ActivityRequest> producerFactory() {
 
         Map<String, Object> config = new HashMap<>();
 
@@ -42,8 +43,8 @@ public class KafkaProducerConfig {
 
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate(
-            ProducerFactory<String, String> producerFactory) {
+    public KafkaTemplate<String, ActivityRequest> kafkaTemplate(
+            ProducerFactory<String, ActivityRequest> producerFactory) {
 
         return new KafkaTemplate<>(producerFactory);
     }

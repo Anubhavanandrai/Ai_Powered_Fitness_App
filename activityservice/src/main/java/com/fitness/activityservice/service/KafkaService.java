@@ -11,16 +11,16 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class KafkaService {
 
-    private final KafkaTemplate<String, String>  kafkaTemplate;
+    private final KafkaTemplate<String, ActivityRequest>  kafkaTemplate;
     private final String TOPIC="activity-events";
 
-    public KafkaService(KafkaTemplate<String, String> kafkaTemplate) {
+    public KafkaService(KafkaTemplate<String, ActivityRequest> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendActivityEvent(ActivityRequest message) {
-        CompletableFuture<SendResult<String, String>> future =
-                kafkaTemplate.send(TOPIC, message);
+    public void sendActivityEvent(ActivityRequest activityDetails) {
+        CompletableFuture<SendResult<String, ActivityRequest>> future =
+                kafkaTemplate.send(TOPIC, activityDetails);
 
         future.whenComplete((result, ex) -> {
             if (ex != null) {

@@ -26,4 +26,6 @@ public class WebClientConfig {
             .baseUrl("http://userservice")
             .build();
     }
+
+
 }
