@@ -20,32 +20,19 @@ public class KafkaProducerConfig {
 
     @Bean
     public ProducerFactory<String, ActivityRequest> producerFactory() {
-
-        Map<String, Object> config = new HashMap<>();
-
-        config.put(
-                ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                "localhost:9092"
-        );
-
-        config.put(
-                ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
-                StringSerializer.class
-        );
-
-        config.put(
-                ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                JacksonJsonSerializer.class
-        );
-
-        return new DefaultKafkaProducerFactory<>(config);
+        return new DefaultKafkaProducerFactory<>(senderproperties());
     }
 
+    private Map<String, Object> senderproperties() {
+        Map<String, Object> config = new HashMap<>();
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JacksonJsonSerializer.class);
+        return config;
+    }
 
     @Bean
-    public KafkaTemplate<String, ActivityRequest> kafkaTemplate(
-            ProducerFactory<String, ActivityRequest> producerFactory) {
-
+    public KafkaTemplate<String, ActivityRequest> kafkaTemplate(ProducerFactory<String, ActivityRequest> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
 }

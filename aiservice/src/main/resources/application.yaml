@@ -1,7 +1,11 @@
 spring:
   application:
     name: aiservice
-
+  ai:
+    openai:
+      api-key: ${OpenAI_API_Key}
+      chat:
+        model: ${Chat_Model}
   mongodb:
    uri: mongodb+srv://Anubhavanand_fitness:Anubhav310@activityservice.kqyxop8.mongodb.net/AiMicroservice?appName=aiRecommendations
 server:
