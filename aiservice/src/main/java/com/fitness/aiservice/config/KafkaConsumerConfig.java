@@ -1,6 +1,5 @@
 package com.fitness.aiservice.config;
 
-
 import com.fitness.aiservice.dto.KafkaConsumerData;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -10,7 +9,6 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.support.serializer.JacksonJsonDeserializer;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +18,6 @@ public class KafkaConsumerConfig {
     @Bean
     public ConsumerFactory<String, KafkaConsumerData> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerProperties());
-
     }
 
     private Map<String, Object> consumerProperties() {
@@ -47,6 +44,25 @@ public class KafkaConsumerConfig {
                 JacksonJsonDeserializer.class
         );
 
+        // Tell Jackson what class to create
+        config.put(
+                JacksonJsonDeserializer.VALUE_DEFAULT_TYPE,
+                KafkaConsumerData.class.getName()
+        );
+
+        // Trust only our AI-service DTO
+        config.put(
+                JacksonJsonDeserializer.TRUSTED_PACKAGES,
+                "com.fitness.aiservice.dto"
+        );
+
+        // Ignore the Activity Service's Java class information
+        // that was added by the producer.
+        config.put(
+                JacksonJsonDeserializer.USE_TYPE_INFO_HEADERS,
+                false
+        );
+
         config.put(
                 ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,
                 "earliest"
@@ -64,7 +80,7 @@ public class KafkaConsumerConfig {
                 new ConcurrentKafkaListenerContainerFactory<>();
 
         factory.setConsumerFactory(consumerFactory);
-        System.out.println("Creating Kafka Listener Factory");
+
         return factory;
     }
 }
