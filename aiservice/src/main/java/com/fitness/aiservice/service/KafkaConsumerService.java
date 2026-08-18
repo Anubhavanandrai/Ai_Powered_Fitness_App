@@ -27,7 +27,7 @@ public class KafkaConsumerService {
            System.out.println("🔥 KAFKA MESSAGE RECEIVED");
            System.out.println("Received activity from kafka is : " + kafkaConsumerData);
            try {
-               System.out.println("🔥Data ready  to send");
+               System.out.println("Data ready  to send");
                String json = aiCaller(kafkaConsumerData);
                System.out.println("Data received from aicaller is : "+json);
                Recommendations  airecommend = objectMapper.readValue(json, Recommendations.class);
