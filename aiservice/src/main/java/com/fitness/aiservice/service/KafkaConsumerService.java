@@ -29,11 +29,14 @@ public class KafkaConsumerService {
            try {
                System.out.println("Data ready  to send");
                String json = aiCaller(kafkaConsumerData);
+
                System.out.println("Data received from aicaller is : "+json);
                Recommendations  airecommend = objectMapper.readValue(json, Recommendations.class);
                System.out.println("Response received from AI is  : " + airecommend);
            }
            catch(Exception e){
+               System.out.println("❌ ERROR: " + e.getMessage());
+               e.printStackTrace();
                throw new RuntimeException("Kafka data not served to OpenAI");
             }
     }
@@ -42,13 +45,13 @@ public class KafkaConsumerService {
 
             String json = objectMapper.writeValueAsString(consumerDataForOpenai);
         System.out.println("Ready to send prompt ");
-            String prompt = """
+            String promp = """
                     Analyze this activity data and genere
                     ate result contaning activity Type, genereate recommendations , List of improvements and suggesttion and safety measures to be taken.Give response in JSON formate.
                     Data : %s
                     """.formatted(json);
-        System.out.println("Ai caller has received prompt: "+prompt);
-            return chatClient.prompt(prompt).call().content();
+        System.out.println("Ai caller has received prompt: "+promp);
+            return chatClient.prompt(promp).call().content();
 
     }
 

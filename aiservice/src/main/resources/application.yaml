@@ -3,9 +3,10 @@ spring:
     name: aiservice
   ai:
     openai:
-      api-key: ${OpenAI_API_Key}
+      api-key: ${OPENROUTER_API_KEY}
+      base-url: https://openrouter.ai/api/v1
       chat:
-        model: ${Chat_Model}
+        model: openrouter/free
   mongodb:
    uri: mongodb+srv://Anubhavanand_fitness:Anubhav310@activityservice.kqyxop8.mongodb.net/AiMicroservice?appName=aiRecommendations
 server:
