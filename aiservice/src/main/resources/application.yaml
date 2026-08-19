@@ -1,18 +1,5 @@
 spring:
   application:
     name: aiservice
-  ai:
-    openai:
-      api-key: ${OPENROUTER_API_KEY}
-      base-url: https://openrouter.ai/api/v1
-      chat:
-        model: openrouter/free
-  mongodb:
-   uri: mongodb+srv://Anubhavanand_fitness:Anubhav310@activityservice.kqyxop8.mongodb.net/AiMicroservice?appName=aiRecommendations
-server:
-  port: 8083
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
+  config:
+    import: configserver:http://localhost:8888
