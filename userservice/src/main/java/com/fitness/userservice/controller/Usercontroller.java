@@ -43,9 +43,7 @@ public ResponseEntity<UserResponse> getUserProfile(@PathVariable String userId){
 
 @PostMapping("/register")
 public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody RegisterUser request){
-	long controller_registeration= System.currentTimeMillis();
 
-	System.out.println(controller_registeration);
 	return ResponseEntity.ok(userservice.registerUser(request));
 			
 }
