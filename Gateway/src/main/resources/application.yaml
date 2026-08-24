@@ -3,3 +3,4 @@ spring:
     name: gatewayservice
   config:
     import: configserver:http://localhost:8888
+

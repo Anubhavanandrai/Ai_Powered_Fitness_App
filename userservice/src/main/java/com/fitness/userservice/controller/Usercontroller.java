@@ -41,7 +41,6 @@ public ResponseEntity<UserResponse> getUserProfile(@PathVariable String userId){
 
 @PostMapping("/register")
 public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody RegisterUser request){
-
 	return ResponseEntity.ok(userservice.registerUser(request));
 			
 }
@@ -51,5 +50,7 @@ public ResponseEntity<Boolean> validateUser(@PathVariable String userId){
 	System.out.println("Inside User controller validate");
 	return ResponseEntity.ok(userservice.existByUserId(userId));
 }
+
+
 
 }
